@@ -1,6 +1,12 @@
 import {Text} from "react-native"
-import React from 'react'
+import React, {useEffect} from 'react'
 
-export const BookItem = () => {
-    return <Text> Bookname </Text>
+export const BookItem = (props) => {
+
+    useEffect(()=>{
+        //do something
+        console.log(props.name)
+      }, [props.name])
+      
+    return <Text> {props.name} </Text>
 }
