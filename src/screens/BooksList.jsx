@@ -1,13 +1,23 @@
-import React, {useState}  from 'react'
-import {BookItem} from "../components/BookItem"
-import {View} from "react-native"
+import React, { useState } from 'react'
+import { BookItem } from "../components/BookItem"
+import { FlatList } from "react-native"
+import Books from "../data/books.json"
 
 export const BooksList = () => {
 
-    const bookNames = ["Zero to One", "Rich dad poor dad", "The midnight library"]
-    const [books, setBooks] = useState(bookNames)
+    const [books, setBooks] = useState(Books)
 
-    return <View>
-        {books.map(book=> <BookItem name={book} />)}
-    </View>
+    const renderBook = ({ item }) => (
+        <BookItem title={item.title}
+            thumbnailUrl={item.thumbnailUrl}
+            shortDescription={item.shortDescription}
+            authors={item.authors}/>
+      );
+
+    return <FlatList
+        data={books}
+        renderItem={renderBook}
+        keyExtractor={item => item.id}
+    />
+
 }
