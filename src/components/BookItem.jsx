@@ -1,8 +1,11 @@
 import {Text, View, Image, StyleSheet} from "react-native"
 import React, {useEffect} from 'react'
 import {Subheading, Caption} from "react-native-paper"
+import { withTheme } from "react-native-paper"
 
-export const BookItem = (props) => {
+export const BookItem = withTheme((props) => {
+
+  const theme = props.theme
 
     useEffect(()=>{
         //do something
@@ -14,11 +17,11 @@ export const BookItem = (props) => {
           uri: props.thumbnailUrl
         }}/>
         <View> 
-          <Subheading> {props.title} </Subheading>
+          <Subheading style={{color: theme.colors.primary}}> {props.title} </Subheading>
           <Caption> {props.authors.join(',')}</Caption>
         </View>
       </View>
-}
+})
 
 const styles = StyleSheet.create({
   thumbnail: {

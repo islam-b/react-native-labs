@@ -2,10 +2,12 @@ import React from 'react'
 import { SafeAreaView, StatusBar, View, Dimensions } from "react-native"
 import { Appbar, Provider as PaperProvider } from 'react-native-paper';
 import { BooksList } from "./src/screens/BooksList"
+import AppTheme from "./src/consts/app-theme"
+
 
 const App = () => {
   return (
-    <PaperProvider >
+    <PaperProvider theme={AppTheme}>
       <SafeAreaView style={{ display: 'flex' }}>
         <StatusBar />
         <Appbar.Header>
