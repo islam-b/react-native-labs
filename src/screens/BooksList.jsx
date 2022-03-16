@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { BookItem } from "../components/BookItem"
 import { FlatList } from "react-native"
-import Books from "../data/books.json" 
 import { TouchableRipple } from 'react-native-paper'
+import { useDispatch, useSelector } from 'react-redux'
+import { BooksSelectors } from '../store/selectors/books.selectors'
+import {getBooks} from "../store/slices/books.slice"
 
 export const BooksList = (props) => {
 
-    const [books, setBooks] = useState(Books)
+    const books = useSelector(BooksSelectors.selectBooks)
+    const dispatch = useDispatch()
 
     const viewDetails = (book) => {
         const navigation = props.navigation
         navigation.navigate('BookDetail', { book })
     }
+
+    useEffect(()=>{
+        dispatch(getBooks())
+    })
 
     const renderBook = ({ item }) => (
         <TouchableRipple onPress={()=>viewDetails(item)}>
