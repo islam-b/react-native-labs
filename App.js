@@ -1,22 +1,16 @@
 import React from 'react'
-import { SafeAreaView, StatusBar, View, Dimensions } from "react-native"
-import { Appbar, Provider as PaperProvider } from 'react-native-paper';
-import { BooksList } from "./src/screens/BooksList"
+import {Provider as PaperProvider } from 'react-native-paper';
 import AppTheme from "./src/consts/app-theme"
+import { HomeNavigator } from './src/navigators/HomeNavigator'
+import { NavigationContainer } from "@react-navigation/native"
 
 
 const App = () => {
   return (
     <PaperProvider theme={AppTheme}>
-      <SafeAreaView style={{ display: 'flex' }}>
-        <StatusBar />
-        <Appbar.Header>
-          <Appbar.Content title="BooksApp" />
-        </Appbar.Header>
-        <View style={{ height: Dimensions.get('window').height }}>
-          <BooksList />  
-        </View>
-      </SafeAreaView>
+      <NavigationContainer theme={AppTheme}>
+        <HomeNavigator /> 
+      </NavigationContainer> 
     </PaperProvider >
   );
 };
