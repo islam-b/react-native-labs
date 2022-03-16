@@ -3,14 +3,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BooksList } from "../screens/BooksList";
 import { FavoriteBooks } from "../screens/FavoriteBooks";
 import { Notifications } from "../screens/Notifications";
-import { Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();
 
 export const HomeNavigator = () => {
-    return <Tab.Navigator screenOptions={(params) => ({
-        header: CustomAppBar,
+    return <Tab.Navigator screenOptions={(params) => ({ 
+        headerShown: false,
         tabBarIcon: tabBarIcon(params.route.name)
     })}>
         <Tab.Screen name="Books" component={BooksList} />
@@ -35,10 +34,3 @@ const tabBarIcon = (routeName) => {
     return ({ focused, color, size }) => <Icon name={icon} size={size} color={color} />
 }
 
-const CustomAppBar = () => {
-    return (
-        <Appbar.Header>
-            <Appbar.Content title="BookApp" />
-        </Appbar.Header>
-    );
-}
