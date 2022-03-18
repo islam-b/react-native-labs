@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Books from "../../data/books.json"
+import {getBooks} from "../actions/books.actions"
 
 const booksInitialState = {
     items: [],
@@ -10,10 +11,24 @@ const booksInitialState = {
 const booksSlice = createSlice({
     name: 'books',
     initialState: booksInitialState,
-    reducers: {
-        getBooks(state) {
-            state.items = Books;
-            state.totalCount = Books.length;
+    extraReducers: builder=>{
+        builder.addCase(getBooks.pending, (state, action)=>{
+            state.loading = true
+        });
+        builder.addCase(getBooks.fulfilled, (state, action)=>{
+            let page = action.payload
+            state.items = state.items.concat(page.items)
+            state.totalCount = page.totalCount
+            state.loading = false 
+        });
+        builder.addCase(getBooks.rejected, (state, action)=>{
+            //TODO handle network errors 
+            state.loading = false 
+        }); 
+    },
+    reducers: { 
+        flushBooks(state, action) {
+            state = booksInitialState
         },
         addBook(state, action) {
             state.items.push(action.payload);
@@ -22,5 +37,5 @@ const booksSlice = createSlice({
     }
 })
 
-export const {getBooks, addBook} = booksSlice.actions;
+export const {flushBooks, addBook} = booksSlice.actions;
 export const booksReducer = booksSlice.reducer;
