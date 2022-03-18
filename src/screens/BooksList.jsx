@@ -21,11 +21,6 @@ export const BooksList = (props) => {
     const viewDetails = (book) => {
         const navigation = props.navigation
         navigation.navigate('BookDetail', { book })
-    }
-
-    const addNewBook = () => {
-        const navigation = props.navigation
-        navigation.navigate('NewBook')
     } 
 
     useEffect(() => {
