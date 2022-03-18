@@ -16,8 +16,12 @@ const booksSlice = createSlice({
             state.loading = true
         });
         builder.addCase(getBooks.fulfilled, (state, action)=>{
-            let page = action.payload
-            state.items = state.items.concat(page.items)
+            let {page, flush} = action.payload
+            if (flush) {
+                state.items = page.items
+            } else {
+                state.items = state.items.concat(page.items)
+            }
             state.totalCount = page.totalCount
             state.loading = false 
         });
@@ -28,7 +32,9 @@ const booksSlice = createSlice({
     },
     reducers: { 
         flushBooks(state, action) {
-            state = booksInitialState
+            state.items = booksInitialState.items
+            state.totalCount = booksInitialState.totalCount
+            state.loading = booksInitialState. loading
         },
         addBook(state, action) {
             state.items.push(action.payload);
