@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Books from "../../data/books.json"
-import {getBooks} from "../actions/books.actions"
+import {getBooks, addBook} from "../actions/books.actions"
+
 
 const booksInitialState = {
     items: [],
     totalCount: 0,
-    loading: false,
+    loading: false, 
+    insertStatus: 'idle' //or 'pending', 'fullfiled', 'rejected'
 }
 
 const booksSlice = createSlice({
@@ -25,17 +27,24 @@ const booksSlice = createSlice({
             //TODO handle network errors 
             state.loading = false 
         }); 
+        builder.addCase(addBook.pending, (state, action)=>{
+            state.insertStatus = 'pending'
+        });
+        builder.addCase(addBook.fulfilled, (state, action)=>{
+            let book = action.payload
+            state.items.unshift(book)
+            state.insertStatus = 'fullfiled'
+        });
+        builder.addCase(addBook.rejected, (state, action)=>{
+            state.insertStatus = 'rejected'
+        }); 
     },
     reducers: { 
         flushBooks(state, action) {
             state = booksInitialState
         },
-        addBook(state, action) {
-            state.items.push(action.payload);
-            state.totalCount+=1;
-        },
     }
 })
 
-export const {flushBooks, addBook} = booksSlice.actions;
+export const {flushBooks} = booksSlice.actions;
 export const booksReducer = booksSlice.reducer;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BookItem } from "../components/BookItem"
 import { FlatList } from "react-native"
-import { TouchableRipple, ActivityIndicator } from 'react-native-paper'
+import { TouchableRipple, ActivityIndicator, FAB } from 'react-native-paper'
 import { useDispatch, useSelector } from 'react-redux'
 import { BooksSelectors } from '../store/selectors/books.selectors'
 import { getBooks } from "../store/actions/books.actions"
@@ -20,6 +20,11 @@ export const BooksList = (props) => {
         const navigation = props.navigation
         navigation.navigate('BookDetail', { book })
     }
+
+    const addNewBook = () => {
+        const navigation = props.navigation
+        navigation.navigate('NewBook')
+    } 
 
     useEffect(() => {
         dispatch(flushBooks())
@@ -42,13 +47,19 @@ export const BooksList = (props) => {
     );
 
     return <>
-        {isLoading ? <ActivityIndicator style={{position: 'absolute', right:0, left:0, top:16}} /> : <></>}
+        {isLoading ? <ActivityIndicator style={{ position: 'absolute', right: 0, left: 0, top: 16 }} /> : <></>}
         <FlatList
             data={books}
             renderItem={renderBook}
             keyExtractor={item => item.id}
             onEndReached={() => setPageIndex(pageIndex + 1)}
             onEndReachedThreshold={0.5}
+        />
+
+        <FAB
+            style={{ position: 'absolute', right: 16, bottom: 16 }}
+            icon="plus"
+            onPress={addNewBook}
         />
     </>
 

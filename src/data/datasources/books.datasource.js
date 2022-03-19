@@ -6,3 +6,7 @@ export function fetchBooks(skipCount=0, maxResultCount=10) {
         params: {skipCount, maxResultCount}
     })
 }
+
+export function insertBook(book) { 
+    return HttpClient.post("/api/books", book)
+}

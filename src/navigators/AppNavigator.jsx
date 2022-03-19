@@ -1,7 +1,9 @@
 import React from "react"
 
 import { createStackNavigator } from '@react-navigation/stack';
+import { NewBook } from '../screens/NewBook';
 import { BookDetail } from '../screens/BookDetail';
+
 import { HomeNavigator } from "./HomeNavigator";
 import { Appbar } from 'react-native-paper';
 
@@ -14,6 +16,7 @@ export const AppNavigator = () => {
     })}>
         <Stack.Screen name="Home" component={HomeNavigator} />
         <Stack.Screen name="BookDetail" component={BookDetail} />
+        <Stack.Screen name="NewBook" component={NewBook}/>
     </Stack.Navigator>
 }
 
