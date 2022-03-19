@@ -13,11 +13,16 @@ const App = () => {
     <StoreProvider store={store}>
       <PaperProvider theme={AppTheme}>
         <NavigationContainer theme={AppTheme}>
-          <AuthNavigator/>
+          <ProtectedNavigation/>
         </NavigationContainer>
       </PaperProvider >
     </StoreProvider>
   );
 };
+
+const ProtectedNavigation = () => {
+  const isAuthenticated  = useIsAuthenticated()
+  return isAuthenticated ? <AppNavigator/> : <AuthNavigator/>
+}
 
 export default App;
