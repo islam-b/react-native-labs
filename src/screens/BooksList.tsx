@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BooksSelectors } from '../store/selectors/books.selectors'
 import { getBooks } from "../store/actions/books.actions"
 import { flushBooks } from "../store/slices/books.slice"
+import { BookDto } from '../data/dtos/book'
 
-export const BooksList = (props) => {
+export const BooksList: React.FC<BooksListPropType> = (props:BooksListPropType) => {
 
     const books = useSelector(BooksSelectors.selectBooks)
     const isLoading = useSelector(BooksSelectors.selectBooksLoading)
@@ -16,7 +17,7 @@ export const BooksList = (props) => {
     const dispatch = useDispatch()
     const [pageIndex, setPageIndex] = useState(0)
 
-    const viewDetails = (book) => {
+    const viewDetails = (book: BookDto) => {
         const navigation = props.navigation
         navigation.navigate('BookDetail', { book })
     }
@@ -27,7 +28,7 @@ export const BooksList = (props) => {
     } 
 
     useEffect(() => {
-        dispatch(flushBooks())
+        dispatch(flushBooks({}))
     })
 
     useEffect(() => {
@@ -37,7 +38,7 @@ export const BooksList = (props) => {
         }))
     }, [pageIndex])
 
-    const renderBook = ({ item }) => (
+    const renderBook = ({ item }: {item: BookDto}) => (
         <TouchableRipple onPress={() => viewDetails(item)}>
             <BookItem title={item.title}
                 thumbnailUrl={item.thumbnailUrl}
@@ -51,7 +52,7 @@ export const BooksList = (props) => {
         <FlatList
             data={books}
             renderItem={renderBook}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.id.toString()}
             onEndReached={() => setPageIndex(pageIndex + 1)}
             onEndReachedThreshold={0.5}
         />
@@ -63,4 +64,8 @@ export const BooksList = (props) => {
         />
     </>
 
+}
+
+interface BooksListPropType {
+    navigation: any
 }

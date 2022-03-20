@@ -18,7 +18,7 @@ export const HomeNavigator = () => {
     </Tab.Navigator>
 }
 
-const tabBarIcon = (routeName) => {
+const tabBarIcon = (routeName: string) => {
     let icon = ""
     switch (routeName) {
         case "Books":
@@ -31,6 +31,6 @@ const tabBarIcon = (routeName) => {
             icon = "bell"
             break;
     } 
-    return ({ focused, color, size }) => <Icon name={icon} size={size} color={color} />
+    return ({ focused, color, size }:any) => <Icon name={icon} size={size} color={color} />
 }
 

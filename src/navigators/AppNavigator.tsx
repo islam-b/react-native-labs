@@ -22,7 +22,7 @@ export const AppNavigator = () => {
 
 
 
-const CustomAppBar = (props) => {
+const CustomAppBar = (props: any) => {
     return (
         <Appbar.Header>
             {props.back ? <Appbar.BackAction onPress={props.navigation.goBack} /> : null}

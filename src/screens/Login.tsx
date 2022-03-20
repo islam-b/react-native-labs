@@ -7,24 +7,25 @@ import * as Yup from "yup"
 import { loginAction } from '../store/actions/auth.actions'
 import {useDispatch, useSelector} from "react-redux"
 import { AuthSelectors } from '../store/selectors/auth.selectors'
+import { LoginDto } from '../data/dtos/auth'
 
 const validationScheme = Yup.object({
     email: Yup.string().email().required(),
     password: Yup.string().required()
 })
 
-export const Login = (props) => {
+export const Login = (props:any) => {
     const [text, setText] = React.useState("");
     const [passVisible, setPassVisible] = React.useState(false);
     const dispatch = useDispatch()
     const isLoading = useSelector(AuthSelectors.selectLoading)
 
-    const initialValues = {
+    const initialValues: LoginDto = {
         email: 'demo@rn.com',
         password: 'Demo@123'
     }
 
-    const onSubmit = (values) => {
+    const onSubmit = (values: LoginDto) => {
         dispatch(loginAction({
             email: values.email,
             password: values.password
@@ -37,7 +38,7 @@ export const Login = (props) => {
             <Headline>Welcome back</Headline>
             <Caption>Sign in to continue</Caption>
         </View>
-        <View style={styles.formContainer}>
+        <View >
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationScheme}

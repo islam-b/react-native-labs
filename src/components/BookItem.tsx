@@ -1,16 +1,16 @@
 import {Text, View, Image, StyleSheet} from "react-native"
 import React, {useEffect} from 'react'
-import {Subheading, Caption} from "react-native-paper"
-import { withTheme } from "react-native-paper"
+import {Subheading, Caption, useTheme} from "react-native-paper"
+import { Theme } from "react-native-paper/lib/typescript/types"
 
-export const BookItem = withTheme((props) => {
+export const BookItem: React.FC<BookItemPropType> = (props:BookItemPropType) => {
 
-  const theme = props.theme
+  const theme = useTheme()
 
     useEffect(()=>{
         //do something
         console.log(props.title)
-      }, [props.name])
+      }, [props.title])
       
     return <View style={styles.container}>
         <Image  style={styles.thumbnail} source={{
@@ -21,7 +21,7 @@ export const BookItem = withTheme((props) => {
           <Caption> {props.authors.join(',')}</Caption>
         </View>
       </View>
-})
+}
 
 const styles = StyleSheet.create({
   thumbnail: {
@@ -36,3 +36,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
+
+interface BookItemPropType {
+  authors: string[];
+  thumbnailUrl: string;
+  title: string;
+  shortDescription: string; 
+  theme?: Theme;
+}

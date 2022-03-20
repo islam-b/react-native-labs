@@ -2,7 +2,7 @@ import { AuthSelectors } from "../store/selectors/auth.selectors"
 import {useSelector} from "react-redux" 
 import { useEffect, useState } from "react";
 
-export function useIsAuthenticated() {
+export function useIsAuthenticated(): boolean {
     const [isAuthenticated, setIAuthenticated] = useState(false)
     const accessToken = useSelector(AuthSelectors.selectAccessToken)
     const expiration = useSelector(AuthSelectors.selectTokenExpiration)
@@ -15,7 +15,7 @@ export function useIsAuthenticated() {
     return isAuthenticated;
 }
 
-function validateToken(token, expiresIn) {
+function validateToken(token: string, expiresIn: string): boolean {
     if (!token || token=="" || !expiresIn) {
         return false;
     } 

@@ -1,6 +1,6 @@
 import { HttpClient } from ".";
 
-export function login(email, password) {
+export function login(email: string, password: string) {
     console.log(email, password)
     return HttpClient.post("/api/auth/login", {
         email: email,
@@ -8,7 +8,7 @@ export function login(email, password) {
     })
 }
 
-export function register(email, password, firstName, lastName) {
+export function register(email: string, password: string, firstName: string, lastName: string) {
     return HttpClient.post("/api/auth/register", {
         email: email,
         password: password,

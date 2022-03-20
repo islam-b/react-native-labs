@@ -7,6 +7,7 @@ import DatePicker from 'react-native-date-picker'
 import { useDispatch, useSelector } from 'react-redux';
 import { BooksSelectors } from '../store/selectors/books.selectors';
 import { addBook } from "../store/actions/books.actions"
+import { BookCreateDto, BookDto } from '../data/dtos/book';
 
 const validationScheme = Yup.object({
     title: Yup.string().required(),
@@ -18,7 +19,7 @@ const validationScheme = Yup.object({
     publishedDate: Yup.date(),
 })
 
-export const NewBook = (props) => {
+export const NewBook:React.FC<any> = (props:any) => {
 
     const [datePickerOpened, setDatePickerOpened] = useState(false)
     const [submitted, setSubmitted]  = useState(false)
@@ -26,11 +27,11 @@ export const NewBook = (props) => {
     const disptach = useDispatch()
     const insertStatus = useSelector(BooksSelectors.selectInsertStatus)
 
-    const initialValues = {
+    const initialValues: BookCreateDto = {
         title: '',
         isbn: '',
         thumbnailUrl: '',
-        pageCount: '',
+        pageCount: 1,
         publishedDate: new Date(),
         shortDescription: '',
         longDescription: '',
@@ -38,7 +39,7 @@ export const NewBook = (props) => {
         categories: []
     }
 
-    const onSubmit = (values) => {
+    const onSubmit = (values: BookCreateDto) => {
         setSubmitted(true)
         disptach(addBook({
             book: values
@@ -124,7 +125,7 @@ export const NewBook = (props) => {
                     <TextInput
                         style={styles.input}
                         label="Page count"
-                        value={values.pageCount}
+                        value={values.pageCount.toString()}
                         mode="outlined"
                         onChangeText={handleChange('pageCount')}
                     />
@@ -151,7 +152,7 @@ export const NewBook = (props) => {
                         multiline={true}
                         onChangeText={handleChange('longDescription')}
                     />
-                    <Button loading={insertStatus=='pending'} disabled={Object.values(errors) > 0}   icon="check" mode="contained" onPress={handleSubmit}>
+                    <Button loading={insertStatus=='pending'} disabled={Object.values(errors).length > 0}   icon="check" mode="contained" onPress={handleSubmit}>
                         Save
                     </Button>
                 </View>

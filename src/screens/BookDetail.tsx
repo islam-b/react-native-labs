@@ -1,9 +1,10 @@
 import React from 'react'
 import { ScrollView, StyleSheet, Image, View } from "react-native"
 import { Title, Paragraph, Caption, Subheading, Chip } from "react-native-paper"
+import { BookDto } from '../data/dtos/book'
 
-export const BookDetail = (props) => {
-    let book = props.route.params.book
+export const BookDetail: React.FC<BookDetailPropType> = (props:BookDetailPropType) => {
+    let book = props.route.params.book as BookDto
     return <ScrollView style={styles.container}>
         <Title style={styles.title}>{book.title}</Title>
 
@@ -63,3 +64,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
     }
 })
+
+interface BookDetailPropType { 
+    route: any;
+}

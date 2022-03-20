@@ -1,35 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { UserInfoDto } from '../../data/dtos/auth';
 import { loginAction } from '../actions/auth.actions';
+import { AuthState } from '../types';
 
-const authInitialState = {
-    accessToken: null,
-    expiresIn: null,
+const authInitialState: AuthState = {
+    accessToken: '',
+    expiresIn: '',
     userInfo: {
         isAuthenticated: false,
         firstName: '',
         lastName: '',
         email: ''
-    },
+    } as UserInfoDto,
     isLoading: false
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState: authInitialState,
-    extraReducers: builder=>{
-        builder.addCase(loginAction.pending, (state, action)=>{
+    extraReducers: builder => {
+        builder.addCase(loginAction.pending, (state, action) => {
             state.isLoading = true
         });
-        builder.addCase(loginAction.fulfilled, (state, action)=>{
+        builder.addCase(loginAction.fulfilled, (state, action) => {
             let response = action.payload
             state.accessToken = response.accessToken
             state.expiresIn = response.expiresIn
-            //state.userInfo = userInfo
+            //state.userInfo = response.userInfo
             console.log(response)
-            state.isLoading = false 
+            state.isLoading = false
         });
-        builder.addCase(loginAction.rejected, (state, action)=>{
-            state.isLoading = false 
+        builder.addCase(loginAction.rejected, (state, action) => {
+            state.isLoading = false
         });
     },
     reducers: {
@@ -39,5 +41,5 @@ const authSlice = createSlice({
     }
 })
 
-export const {logout} = authSlice.actions;
+export const { logout } = authSlice.actions;
 export const authReducer = authSlice.reducer;
