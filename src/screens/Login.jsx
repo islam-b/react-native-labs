@@ -1,12 +1,13 @@
 import React from 'react'
-import { View, Image, StyleSheet, Dimensions, ScrollView } from "react-native"
+import { View, Image, StyleSheet, Dimensions, ScrollView, Text } from "react-native"
 import { ASSETS } from '../assets'
 import { Headline, Caption, TextInput, Button, HelperText } from "react-native-paper"
 import { Formik } from 'formik'
 import * as Yup from "yup"
 import { loginAction } from '../store/actions/auth.actions'
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { AuthSelectors } from '../store/selectors/auth.selectors'
+import { t } from 'i18n-js'
 
 const validationScheme = Yup.object({
     email: Yup.string().email().required(),
@@ -34,8 +35,9 @@ export const Login = (props) => {
     return <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.heading}>
             <Image style={styles.avatar} source={ASSETS.avatar} />
-            <Headline>Welcome back</Headline>
+            <Headline>{t('hello')}</Headline>
             <Caption>Sign in to continue</Caption>
+
         </View>
         <View style={styles.formContainer}>
             <Formik

@@ -1,11 +1,13 @@
 const settings = {
     dev: {
         baseUrl: "https://books-app-rn.azurewebsites.net",
-        storageKey: "booksAppSafeStorage"
+        storageKey: "booksAppSafeStorage",
+        fallbackCulture: "en"
     },
     prod: {
         baseUrl: "https://books-app-rn.azurewebsites.net",
-        storageKey: "booksAppSafeStorage"
+        storageKey: "booksAppSafeStorage",
+        fallbackCulture: "en"
     }
 }
 

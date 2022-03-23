@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Provider as PaperProvider } from 'react-native-paper';
 import AppTheme from "./src/consts/app-theme"
 import { AuthNavigator } from './src/navigators/AuthNavigator';
@@ -8,8 +8,16 @@ import { Provider as StoreProvider } from 'react-redux'
 import { store, persistor } from "./src/store"
 import { PersistGate } from 'redux-persist/integration/react'
 import {useIsAuthenticated} from "./src/hooks/useIsAuthenticated"
+import { changeCulture } from './src/locales'; 
 
 const App = () => {
+
+  const [lang, setLang] = useState(null);
+
+  useEffect(()=>{
+    changeCulture(lang)  
+  },[lang])
+
   return (
     <StoreProvider store={store}>
       <PersistGate loading={null} persistor={persistor}>
