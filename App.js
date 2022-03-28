@@ -6,15 +6,11 @@ import { BooksList } from "./src/screens/BooksList"
 const App = () => {
   return (
     <PaperProvider >
-      <SafeAreaView style={{ display: 'flex' }}>
-        <StatusBar />
-        <Appbar.Header>
-          <Appbar.Content title="BooksApp" />
-        </Appbar.Header>
-        <View style={{ height: Dimensions.get('window').height }}>
-          <BooksList />  
-        </View>
-      </SafeAreaView>
+      <StatusBar />
+      <Appbar.Header>
+        <Appbar.Content title="BooksApp" />
+      </Appbar.Header>
+      <BooksList /> 
     </PaperProvider >
   );
 };
